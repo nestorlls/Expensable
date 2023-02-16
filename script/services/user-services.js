@@ -1,20 +1,20 @@
-import { tokenKey } from "../config.js";
-import apiFetch from "./api-fetch.js";
+import { tokenKey } from '../config.js';
+import apiFetch from './api-fetch.js';
 
-
-async function createUser( newUser = { email, password, firstName, lastName, phone }
+export async function createUser(
+  newUser = { email, password, firstName, lastName, phone }
 ) {
-  const { token, ...user } = await apiFetch('singup', { body: credentials });
+  const { token, ...user } = await apiFetch('singup', { body: newUser });
   sessionStorage.setItem(tokenKey, token);
   return user;
 }
 
-async function updateUser( newUser = { email, password, firstName, lastName, phone }
+export async function updateUser(
+  data = { email, password, firstName, lastName, phone }
 ) {
   const { token, ...user } = await apiFetchtch('profile', {
     body: data,
     method: 'PATCH',
   });
-  sessionStorage.setItem(tokenKey, token);
   return user;
 }
