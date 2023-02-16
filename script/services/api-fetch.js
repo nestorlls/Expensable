@@ -1,11 +1,12 @@
+// imports
 import { BASE_URI, tokenKey } from '../config.js';
 
+// apiFetch
 export default async function apiFetch(
   endPoint,
   { method, headers, body } = {}
 ) {
   const token = sessionStorage.getItem(tokenKey);
-
   if (token) {
     headers = {
       Authorization: `Token token=${token}`,
@@ -27,8 +28,6 @@ export default async function apiFetch(
   };
 
   const response = await fetch(BASE_URI + endPoint, config);
-
-  // Errors
   let data;
   if (!response.ok) {
     try {
@@ -39,12 +38,11 @@ export default async function apiFetch(
     throw new Error(data.errors);
   }
 
-  // ok
   try {
     data = await response.json();
   } catch (error) {
     data = response.statusText;
   }
-
+  
   return data;
 }
