@@ -1,6 +1,8 @@
 // imports
 import DOMHandler from '../dom-handler.js';
 import STORE from '../store.js';
+import Expenses from './components/expenses.js';
+import Profile from './components/profile.js';
 
 function render() {
   const currentTab = STORE.currentTab;
@@ -19,6 +21,9 @@ function render() {
             currentTab === 'profile' ? 'activeTab' : ''
           }" data-tab="profile">Profile</a>
         </div>
+        ${currentTab === 'expense' ? Expenses : ''}
+        ${currentTab === 'income' ? Expenses : ''}
+        ${currentTab === 'profile' ? Profile : ''}
       </section>
     </main>
   `;
@@ -41,6 +46,7 @@ const HomePage = {
   },
   addListeners() {
     listenNavigation();
+    Expenses.addListeners();
   },
 };
 export default HomePage;
